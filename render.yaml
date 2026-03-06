@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: lexiscan-auto
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements-prod.txt
+    startCommand: uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: PYTHON_VERSION
+        value: "3.10.13"

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LexiScan Auto – Legal NER Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════ HEADER ═══════════════════ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="8" fill="url(#brandGrad)" />
+            <path d="M7 8h14M7 12h10M7 16h12M7 20h8" stroke="white" stroke-width="2" stroke-linecap="round" />
+            <circle cx="21" cy="18" r="4" fill="#22d3ee" stroke="white" stroke-width="1.5" />
+            <path d="M19.5 18l1 1 2-2" stroke="white" stroke-width="1.2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <defs>
+              <linearGradient id="brandGrad" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366f1" />
+                <stop offset="1" stop-color="#8b5cf6" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div>
+          <span class="brand-name">LexiScan <span class="brand-accent">Auto</span></span>
+          <span class="brand-tag">Legal NER System</span>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <a href="#scenario1" class="nav-link" onclick="switchScenario(1)">Demo Script</a>
+        <a href="#scenario2" class="nav-link" onclick="switchScenario(2)">REST API</a>
+        <a href="#scenario3" class="nav-link" onclick="switchScenario(3)">Python SDK</a>
+        <a href="http://localhost:8000/docs" target="_blank" class="btn-docs">API Docs ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-orbs">
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="orb orb3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">Production-Grade NLP System</div>
+      <h1 class="hero-title">
+        Intelligent Legal<br />
+        <span class="gradient-text">Document Parser</span>
+      </h1>
+      <p class="hero-subtitle">
+        Automatically extract parties, dates, amounts, jurisdictions and contract terms from raw legal text using a
+        multi-model NER pipeline with validation logic.
+      </p>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Entity Types</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card">
+          <div class="stat-value">3</div>
+          <div class="stat-label">NER Models</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card">
+          <div class="stat-value">&lt;2s</div>
+          <div class="stat-label">Avg Processing</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-card">
+          <div class="stat-value">REST</div>
+          <div class="stat-label">API Ready</div>
+        </div>
+      </div>
+      <div class="hero-pills">
+        <span class="pill pill-party">PARTY</span>
+        <span class="pill pill-date">DATE</span>
+        <span class="pill pill-amount">AMOUNT</span>
+        <span class="pill pill-jurisdiction">JURISDICTION</span>
+        <span class="pill pill-term">TERM</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ SCENARIO TABS ═══════════════════ -->
+  <section class="scenarios-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Three Ways to Use LexiScan Auto</h2>
+        <p class="section-sub">Select a scenario below to run it live or explore how it works</p>
+      </div>
+
+      <div class="tab-bar" role="tablist">
+        <button class="tab-btn active" id="tab1" onclick="switchScenario(1)" role="tab">
+          <span class="tab-icon">🎬</span>
+          <span class="tab-label">Scenario 1</span>
+          <span class="tab-name">Demo Script</span>
+        </button>
+        <button class="tab-btn" id="tab2" onclick="switchScenario(2)" role="tab">
+          <span class="tab-icon">🌐</span>
+          <span class="tab-label">Scenario 2</span>
+          <span class="tab-name">REST API</span>
+        </button>
+        <button class="tab-btn" id="tab3" onclick="switchScenario(3)" role="tab">
+          <span class="tab-icon">🐍</span>
+          <span class="tab-label">Scenario 3</span>
+          <span class="tab-name">Python SDK</span>
+        </button>
+      </div>
+
+      <!-- ─── SCENARIO 1: DEMO SCRIPT ─── -->
+      <div class="scenario-panel active" id="scenario1">
+        <div class="panel-grid">
+          <div class="panel-left">
+            <div class="panel-header">
+              <div class="panel-badge badge-demo">Demo Script</div>
+              <h3>Quick Contract Batch Processing</h3>
+              <p>Run <code>python demo.py</code> to quickly process 3 sample contracts and preview extracted entities
+                right in the terminal. Perfect for understanding the system and testing it out.</p>
+            </div>
+
+            <div class="flow-steps">
+              <div class="flow-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <div class="step-title">Program Starts</div>
+                  <div class="step-desc">Python opens <code>demo.py</code> and loads all necessary libraries</div>
+                </div>
+              </div>
+              <div class="flow-connector"></div>
+              <div class="flow-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <div class="step-title">Model Initialization</div>
+                  <div class="step-desc"><code>BaselineNERModel</code> created with RegexExtractor + TF-IDF Classifier
+                  </div>
+                </div>
+              </div>
+              <div class="flow-connector"></div>
+              <div class="flow-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <div class="step-title">Find Contracts</div>
+                  <div class="step-desc">Scans <code>data/raw/full_contract_txt/</code> and picks up to 3
+                    <code>.txt</code> files</div>
+                </div>
+              </div>
+              <div class="flow-connector"></div>
+              <div class="flow-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <div class="step-title">Extract & Display</div>
+                  <div class="step-desc">Reads each contract, extracts entities, showing counts and examples per type
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="command-block">
+              <div class="cmd-header">
+                <span class="cmd-dot red"></span><span class="cmd-dot yellow"></span><span class="cmd-dot green"></span>
+                <span class="cmd-title">PowerShell</span>
+              </div>
+              <div class="cmd-body">
+                <span class="cmd-prompt">PS &gt;</span>
+                <span class="cmd-text"> python demo.py</span>
+              </div>
+            </div>
+
+            <div class="analogy-card">
+              <div class="analogy-icon">⚖️</div>
+              <div>
+                <div class="analogy-title">Real-world analogy</div>
+                <div class="analogy-text">Like hiring a paralegal to read 3 contracts and highlight who the parties are,
+                  important dates, money amounts and applicable jurisdictions — but done automatically in seconds.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-right">
+            <div class="terminal-window">
+              <div class="terminal-header">
+                <span class="term-dot red"></span>
+                <span class="term-dot yellow"></span>
+                <span class="term-dot green"></span>
+                <span class="term-title">demo.py — Terminal Output</span>
+                <button class="btn-run-demo" id="runDemoBtn" onclick="runDemo()">▶ Run Demo</button>
+              </div>
+              <div class="terminal-body" id="terminalBody">
+                <div class="terminal-placeholder">
+                  <div class="placeholder-icon">▶</div>
+                  <div>Click <strong>Run Demo</strong> to simulate <code>python demo.py</code> output</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="entity-legend">
+              <div class="legend-title">Entity Types</div>
+              <div class="legend-grid">
+                <div class="legend-item"><span class="legend-dot dot-party"></span>PARTY — Companies &amp; individuals
+                </div>
+                <div class="legend-item"><span class="legend-dot dot-date"></span>DATE — Effective &amp; termination
+                  dates</div>
+                <div class="legend-item"><span class="legend-dot dot-amount"></span>AMOUNT — Monetary values</div>
+                <div class="legend-item"><span class="legend-dot dot-jurisdiction"></span>JURISDICTION — Governing law
+                </div>
+                <div class="legend-item"><span class="legend-dot dot-term"></span>TERM — Duration periods</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Section (populated dynamically) -->
+        <div id="demoResults" class="demo-results hidden"></div>
+      </div>
+
+      <!-- ─── SCENARIO 2: REST API ─── -->
+      <div class="scenario-panel hidden" id="scenario2">
+        <div class="panel-grid">
+          <div class="panel-left">
+            <div class="panel-header">
+              <div class="panel-badge badge-api">REST API</div>
+              <h3>Live Document Processing Service</h3>
+              <p>The FastAPI server runs at <code>http://localhost:8000</code>. Upload any <code>.txt</code> contract
+                file and receive a structured JSON response with validated entities.</p>
+            </div>
+
+            <div class="flow-steps">
+              <div class="flow-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <div class="step-title">Server Starts</div>
+                  <div class="step-desc"><code>uvicorn</code> starts, models load — BaselineNER + DateValidator +
+                    EntityValidator</div>
+                </div>
+              </div>
+              <div class="flow-connector"></div>
+              <div class="flow-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <div class="step-title">Upload Contract</div>
+                  <div class="step-desc">POST a <code>.txt</code> file to <code>/extract</code> endpoint</div>
+                </div>
+              </div>
+              <div class="flow-connector"></div>
+              <div class="flow-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <div class="step-title">Extract &amp; Validate</div>
+                  <div class="step-desc">Server runs NER, validates entities, standardizes dates to ISO 8601</div>
+                </div>
+              </div>
+              <div class="flow-connector"></div>
+              <div class="flow-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <div class="step-title">Receive JSON</div>
+                  <div class="step-desc">Clean structured response with entities, dates, validation status, and
+                    processing time</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="api-endpoints">
+              <div class="endpoint-title">API Endpoints</div>
+              <div class="endpoint-row">
+                <span class="method-get">GET</span>
+                <code>/health</code>
+                <span class="endpoint-desc">Check server & model status</span>
+              </div>
+              <div class="endpoint-row">
+                <span class="method-post">POST</span>
+                <code>/extract</code>
+                <span class="endpoint-desc">Upload .txt, get entities</span>
+              </div>
+              <div class="endpoint-row">
+                <span class="method-get">GET</span>
+                <code>/docs</code>
+                <span class="endpoint-desc">Swagger UI documentation</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-right">
+            <!-- Health check -->
+            <div class="api-card">
+              <div class="api-card-header">
+                <span class="api-card-icon">💚</span>
+                <span class="api-card-title">Server Health Check</span>
+                <button class="btn-check-health" onclick="checkHealth()">Check Status</button>
+              </div>
+              <div class="health-result" id="healthResult">
+                <div class="health-placeholder">Click "Check Status" to ping <code>GET /health</code></div>
+              </div>
+            </div>
+
+            <!-- File upload -->
+            <div class="api-card">
+              <div class="api-card-header">
+                <span class="api-card-icon">📤</span>
+                <span class="api-card-title">Upload Contract for Extraction</span>
+              </div>
+              <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()"
+                ondrop="handleFileDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                <div class="upload-icon">📄</div>
+                <div class="upload-text">Drop a <strong>.txt</strong> or <strong>.pdf</strong> contract file here</div>
+                <div class="upload-sub">or click to browse</div>
+                <input type="file" id="fileInput" accept=".txt,.pdf" style="display:none"
+                  onchange="handleFileSelect(event)" />
+              </div>
+              <div id="selectedFile" class="selected-file hidden"></div>
+              <button class="btn-extract" id="extractBtn" onclick="uploadAndExtract()" disabled>
+                <span class="btn-text">Extract Entities</span>
+                <span class="btn-loader hidden" id="extractLoader">⏳</span>
+              </button>
+            </div>
+
+            <!-- API Results -->
+            <div class="api-results hidden" id="apiResults"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── SCENARIO 3: PYTHON SCRIPT ─── -->
+      <div class="scenario-panel hidden" id="scenario3">
+        <div class="panel-grid">
+          <div class="panel-left">
+            <div class="panel-header">
+              <div class="panel-badge badge-sdk">Python SDK</div>
+              <h3>Direct Python Integration</h3>
+              <p>Import <code>BaselineNERModel</code> directly into your own Python application for full control over
+                the NER pipeline — no server required.</p>
+            </div>
+
+            <div class="flow-steps">
+              <div class="flow-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <div class="step-title">Import Model</div>
+                  <div class="step-desc"><code>from src.models.baseline import BaselineNERModel</code></div>
+                </div>
+              </div>
+              <div class="flow-connector"></div>
+              <div class="flow-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <div class="step-title">Instantiate</div>
+                  <div class="step-desc">Creates RegexExtractor (5 pattern sets) + TFIDFClassifier (5000 features)</div>
+                </div>
+              </div>
+              <div class="flow-connector"></div>
+              <div class="flow-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <div class="step-title">Call extract_entities()</div>
+                  <div class="step-desc">Runs regex patterns, removes overlaps, sorts by document position</div>
+                </div>
+              </div>
+              <div class="flow-connector"></div>
+              <div class="flow-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <div class="step-title">Use Results</div>
+                  <div class="step-desc">Iterate entities — each has <code>label</code>, <code>text</code>,
+                    <code>start</code>, <code>end</code>, <code>confidence</code></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="analogy-card">
+              <div class="analogy-icon">🤖</div>
+              <div>
+                <div class="analogy-title">Personal assistant analogy</div>
+                <div class="analogy-text">You have a personal assistant (the model). You hand them a contract, they
+                  highlight everything important, and hand you back a categorized list — all inside your own code.</div>
+              </div>
+            </div>
+
+            <div class="comparison-table">
+              <div class="comp-title">When to use each approach</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Approach</th>
+                    <th>Best for</th>
+                    <th>Overhead</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="badge-demo-sm">Demo</span></td>
+                    <td>Quick test &amp; leaning</td>
+                    <td>None</td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge-api-sm">API</span></td>
+                    <td>Web services &amp; teams</td>
+                    <td>HTTP</td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge-sdk-sm">SDK</span></td>
+                    <td>Custom code &amp; research</td>
+                    <td>Minimal</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel-right">
+            <div class="code-window">
+              <div class="code-header">
+                <span class="code-dot red"></span><span class="code-dot yellow"></span><span
+                  class="code-dot green"></span>
+                <span class="code-title">my_script.py</span>
+                <button class="btn-copy" onclick="copyCode()">Copy</button>
+              </div>
+              <div class="code-body">
+                <pre id="codeBlock"><code><span class="c"># my_script.py</span>
+<span class="kw">from</span> src.models.baseline <span class="kw">import</span> BaselineNERModel
+
+<span class="c"># Initialize the NER model</span>
+model = <span class="fn">BaselineNERModel</span>()
+
+<span class="c"># Read a contract file</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="str">"contract.txt"</span>, <span class="str">"r"</span>) <span class="kw">as</span> f:
+    text = f.<span class="fn">read</span>()
+
+<span class="c"># Extract named entities</span>
+entities = model.<span class="fn">extract_entities</span>(text)
+
+<span class="c"># Process results</span>
+<span class="kw">for</span> entity <span class="kw">in</span> entities:
+    <span class="fn">print</span>(<span class="str">f"{entity['label']}: {entity['text']}"</span>)</code></pre>
+              </div>
+            </div>
+
+            <!-- Live text playground -->
+            <div class="playground-card">
+              <div class="playground-header">
+                <span class="playground-icon">🧪</span>
+                <span class="playground-title">Live Playground — Paste Contract Text</span>
+              </div>
+              <textarea id="playgroundText" class="playground-textarea"
+                placeholder="Paste any legal contract text here and click 'Extract via API' to see the model in action...">This Services Agreement (this "Agreement") is entered into on October 1, 2019 and is made effective as of November 1, 2019 (the "Effective Date"), by and between TELCOSTAR PTE, LTD., a company organized and existing under the laws of Singapore and Ability Computer & Software Industries Ltd, a company organized and existing under the laws of the State of Israel. The Agreement shall terminate on December 31, 2020. As consideration for provision of the Services, Recipient shall pay Provider an amount equal to $500,000 USD. This Agreement shall be governed by and construed in accordance with the domestic laws of the State of Israel.</textarea>
+              <button class="btn-playground" onclick="extractFromText()">
+                <span id="playgroundBtnText">⚡ Extract via API</span>
+              </button>
+            </div>
+
+            <!-- Playground results -->
+            <div class="playground-results hidden" id="playgroundResults"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════ HOW IT WORKS ═══════════════════ -->
+  <section class="how-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">How the NER Engine Works</h2>
+        <p class="section-sub">All three scenarios share the same underlying <code>BaselineNERModel</code> brain</p>
+      </div>
+      <div class="engine-cards">
+        <div class="engine-card">
+          <div class="engine-icon engine-regex">🔍</div>
+          <h4>Regex Extractor</h4>
+          <p>Pattern-based extraction for dates, monetary amounts, company names (Inc., LLC, Corp.), jurisdictions and
+            contract terms.</p>
+          <div class="engine-tags"><span>DATE</span><span>AMOUNT</span><span>PARTY</span></div>
+        </div>
+        <div class="engine-arrow">→</div>
+        <div class="engine-card">
+          <div class="engine-icon engine-tfidf">🧠</div>
+          <h4>TF-IDF Classifier</h4>
+          <p>Logistic regression over 5000 TF-IDF features classifies text segments into entity categories with
+            confidence scores.</p>
+          <div class="engine-tags"><span>JURISDICTION</span><span>TERM</span></div>
+        </div>
+        <div class="engine-arrow">→</div>
+        <div class="engine-card">
+          <div class="engine-icon engine-valid">✅</div>
+          <h4>Validator Layer</h4>
+          <p>Post-processing rules check overlap removal, date consistency (termination &gt; effective), amount
+            validity, and entity uniqueness.</p>
+          <div class="engine-tags"><span>PASSED</span><span>WARNING</span><span>FAILED</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name">LexiScan <span class="brand-accent">Auto</span></span>
+        <span class="footer-tag">Production-Grade Legal NER · Infotact Solutions · Q4 2025</span>
+      </div>
+      <div class="footer-links">
+        <a href="http://localhost:8000/docs" target="_blank">Swagger UI</a>
+        <a href="http://localhost:8000/health" target="_blank">Health Check</a>
+        <a href="http://localhost:8000/redoc" target="_blank">ReDoc</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
