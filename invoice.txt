@@ -1,0 +1,3 @@
+Invoice No: INV-1001
+Date: 03/03/2026
+Total Amount: 1500
